@@ -5,8 +5,11 @@
 #define STX 0x02
 #define ETX 0x03
 
-void uart_receive(void* dev);
-void uart_send(void* dev);
-
+#ifdef __ZEPHYR__
+#include <zephyr/device.h>
+#include <zephyr/kernel.h>
+void uart_receive(const device *dev);
+void uart_send(const device *dev);
+#endif // __ZEPHYR__
 
 #endif // UART_H

@@ -12,11 +12,32 @@ void setup() {
   Serial.begin(115200);   // Open seriële communicatie op 115200 baud
 }
 
+void receive() {
+  char c = Serial.read();
+  if (!inFrame) {
+    if (c == STX) { //start of frame
+      inFrame = 1;
+      i = 0;
+    }
+  } else {
+    if (c == ETX || i >= BUF_SIZE-1) { //end of frame
+      i = 0;
+      inFrame = 0;
+      Serial.println(buffer);
+    } else {
+      buffer[i++] = c;
+    }
+  }
+};
+
+
 void loop() {
 
   while (Serial.available() > 0) {
 
-    char c = Serial.read();  // 
+    receive();
+    //char c = Serial.read();  // 
+
 /*    
     Serial.print("c = "); Serial.print(c); 
     Serial.print(" ("); Serial.print((int)c); Serial.print(")\t");
@@ -25,7 +46,7 @@ void loop() {
     Serial.print("\n");
     Serial.print("\n");
 */
-
+/*
     if (!inFrame) {
       if (c == STX) { //start of frame
         inFrame = 1;
@@ -40,5 +61,6 @@ void loop() {
         buffer[i++] = c;
       }
     }
+*/
   }
 }

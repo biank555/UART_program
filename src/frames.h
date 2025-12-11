@@ -1,5 +1,5 @@
-#include <stdint.h>
-#include <iostream>
+//#include <stdint.h>
+//#include <iostream>
 
 
 enum FrameType : uint8_t {
@@ -18,19 +18,28 @@ enum DataType : uint8_t {
 // ***** BASE FRAME ******
 
 struct Frame {
+
+    //members
     virtual uint8_t frameType;
+    virtual uint8_t id;
     virtual uint8_t length;
     virtual uint8_t checksum;
 
+    //functions
     virtual void serialize(uint8_t* buffer);
+    virtual void deserialize(uint8_t* buffer);
 };
 
 
 // ***** DATA PACKET FRAME ******
 
 struct DataFrame : public Frame {
-    uint8_t payload[BUF_SIZE];
-    DataFrame(uint8_t payload[BUF_SIZE]);
+
+    //members
+    uint8_t *payload;
+
+    //functions
+    DataFrame(uint8_t *payload, size_t len);
     serialize(uint8_t* buffer) override;
 };
 
@@ -38,24 +47,36 @@ struct DataFrame : public Frame {
 // ***** BOOT MSG FRAME ******
 
 struct BootFrame : public Frame {
-    uint8_t bootMessage[BUF_SIZE];
-    Bootframe();
+
+    //members
+    uint8_t *bootMessage;
+
+    //functions
+    Bootframe(uint8_t *msg, size_t len);
     serialize(uint8_t* buffer) override;
+    deserialize(uint8_t* buffer) override;
 };
 
 
 // ***** REQUEST FRAME ******
 
 struct ReqFrame : public Frame {
+
+    //members
     DataType requestType;
-    ReqFrame(uint8_t type);
-    void serialize(uint8_t* buffer) override;
+
+    //functions
+    ReqFrame(uint8_t *reqs, size_t len);
+    serialize(uint8_t* buffer) override;
+    deserialize(uint8_t* buffer) override;
 };
 
 
 // ***** ACK FRAME ******
 
 struct AckFrame : public Frame {
+
+    //functions
     void AckFrame();
 };
 
@@ -63,6 +84,8 @@ struct AckFrame : public Frame {
 // ***** NACK FRAME ******
 
 struct NackFrame : public Frame {
+
+    //functions
     void NackFrame();
 };
 
