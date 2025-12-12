@@ -6,7 +6,8 @@ project(uart)
 target_sources(app PRIVATE
     src/main.cpp
     src/uart.cpp
-    src/frames.cpp)
+    src/frames.cpp
+    src/sensors.cpp)
 
 target_include_directories(app PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src

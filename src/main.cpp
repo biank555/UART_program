@@ -6,34 +6,24 @@
 #include "uart.h"
 #include "frames.h"
 
-struct uart_config cfg = {
-    .baudrate = 115200,
-    .parity = UART_CFG_PARITY_NONE,
-    .stop_bits = UART_CFG_STOP_BITS_1,
-    .data_bits = UART_CFG_DATA_BITS_8,
-    .flow_ctrl = UART_CFG_FLOW_CTRL_NONE
-};
 
-uint8_t buffer[BUF_SIZE];
+//uint8_t buffer[MAX_BUFFER] = {0,1,2,3,4,5};
+
+K_THREAD_DEFINE(ping_thread, 1024, pinging, NULL, NULL, NULL,
+                5, 0, 0);
+K_THREAD_DEFINE(uart_listen_thread, 1024, uart_listen, NULL, NULL, NULL,
+                6, 0, 0);
 
 int main()
 {
-    device_init();
+    k_msleep(250);
+    uart_init();
 
-    //uart_receive(uart_dev);
-    //uart_send(uart_dev);
+    printf("hij pingt\n");
+    k_msleep(666);
+    printf("en het programma gaat ongestoord verder\n");
 
-
-    //make ACK
-    //AckFrame Ack;
-    //Ack.serialize(buffer);
-    for(int i = 0; i<6 ;i++) {
-        printk("buffer[%d] = %x\n",i , buffer[i]);
-    }
-    //serialize
-    //send ACK
-
-
+    
 
     return 0;
 }

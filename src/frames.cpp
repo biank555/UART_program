@@ -1,21 +1,25 @@
 #include "frames.h"
 #include "uart.h"
+#include <zephyr/kernel.h>
 
 #define HEADER_SIZE 4
 #define TAIL_SIZE 2
 
-static uint8_t frameCounter = 0;
+void frames_init(void) {
+    frameCounter = 0;
+}
 
 
 
 // ***** BASE FRAME ******
 
-Frame::Frame(const uint8_t *data, const size_t len) {
+Frame::Frame( uint8_t *data,  size_t len) {
 
     length = HEADER_SIZE+TAIL_SIZE;
 
 
     id = frameCounter++;
+    printf("frameCounter = %d\n", frameCounter);
     checksum = 0;
 }
 
@@ -25,7 +29,7 @@ void Frame::structToBitstream(uint8_t* buffer) {
     buffer[2] = id;
     buffer[3] = length;
     //		   <---- additional members go here
-    //buffer[4] = checksum;
+    buffer[4] = checksum;//TODO implement!!
     buffer[5] = ETX;
 }
 
@@ -33,21 +37,20 @@ void Frame::bitstreamToStruct(uint8_t* buffer) {
     frameType = buffer[1];
     id = buffer[2];
     length = buffer[3];
-    //checksum = buffer[4];
+    checksum = buffer[4];//TODO:expand!!
 }
-
 
 
 
 // ***** DATA PACKET FRAME ******
 
-DataFrame::DataFrame(const uint8_t *data, const size_t len)
+DataFrame::DataFrame( uint8_t *data,  size_t len)
     : Frame(data, len)
 {
     frameType = DATA;
 
 
-    *payload = data;
+    payload = data;
     length = HEADER_SIZE+len+TAIL_SIZE;
     checksum = 0; //TODO!!
 }
@@ -71,10 +74,10 @@ void DataFrame::bitstreamToStruct(uint8_t* buffer) {
 
 // ***** BOOT MSG FRAME ******
 
-BootFrame::BootFrame(const uint8_t *data, const size_t len)
+BootFrame::BootFrame( uint8_t *data,  size_t len)
     : Frame(data, len)
 {
-    *frameType = BOOTMESSAGE;
+    frameType = BOOTMESSAGE;
 
     bootMessage = data;
     length = HEADER_SIZE+len+TAIL_SIZE;
@@ -99,12 +102,12 @@ void BootFrame::bitstreamToStruct(uint8_t* buffer) {
 
 // ***** REQUEST FRAME ******
 
-ReqFrame::ReqFrame(const uint8_t *data, const size_t len)
+ReqFrame::ReqFrame( uint8_t *data,  size_t len)
     : Frame(data, len)
 {
     frameType = REQUEST;
 
-    *requests = data;
+    requests = data;
     length = len;
     checksum = 0;  // TODO!!
 }
@@ -128,13 +131,12 @@ void ReqFrame::bitstreamToStruct(uint8_t* buffer) {
 
 // ***** ACK FRAME ******
 
-AckFrame::AckFrame(const uint8_t *data, const size_t len)
+AckFrame::AckFrame( uint8_t *data,  size_t len)
     : Frame(data, len)
 {
     frameType = ACK;
 
 
-    length = 0;
     checksum = 0;  // TODO!!
 };
 
@@ -144,13 +146,24 @@ AckFrame::AckFrame(const uint8_t *data, const size_t len)
 // ***** NACK FRAME ******
 
 
-NackFrame::NackFrame(const uint8_t *data, const size_t len)
+NackFrame::NackFrame( uint8_t *data,  size_t len)
     : Frame(data, len)
 {
-        frameType = NACK;
+    frameType = NACK;
 
 
-        length = 0;
-        checksum = 0;  // TODO!!
+    checksum = 0;  // TODO!!
 }
 
+
+
+
+// ***** PING FRAME ******
+PingFrame::PingFrame( uint8_t *data, size_t len)
+    : Frame(data, len)
+{
+    frameType = PING;
+
+
+    checksum = 0;  // TODO!!
+}

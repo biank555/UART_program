@@ -2,3 +2,9 @@
 default zephyr stm32f746g disco UART1:
 115200 8N1
 
+Pseudo multithreading on arduino:
+void loop() {
+    task1();
+    task2();
+    task3();
+}
