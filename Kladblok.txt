@@ -1,0 +1,4 @@
+
+default zephyr stm32f746g disco UART1:
+115200 8N1
+

@@ -1,18 +1,21 @@
-//#include <stdint.h>
+#ifndef FRAMES_H
+#define FRAMES_H
+
+#include <stdint.h>
 //#include <iostream>
+#include <cstddef>
 
-
-enum FrameType : uint8_t {
-    BOOTINFO,
-    REQUEST
-    DATA
-    ACK
+enum FrameType {
+    BOOTMSG,
+    REQUEST,
+    DATA,
+    ACK,
     NACK
 };
 
-enum DataType : uint8_t {
+enum DataType {
     TEMP
-}
+};
 
 
 // ***** BASE FRAME ******
@@ -20,12 +23,14 @@ enum DataType : uint8_t {
 struct Frame {
 
     //members
-    virtual uint8_t frameType;
-    virtual uint8_t id;
-    virtual uint8_t length;
-    virtual uint8_t checksum;
+    uint8_t frameType;
+    uint8_t id;
+    uint8_t length;
+    uint8_t checksum;
 
+    public:
     //functions
+    Frame(const uint8_t *data, const size_t len);
     virtual void serialize(uint8_t* buffer);
     virtual void deserialize(uint8_t* buffer);
 };
@@ -39,8 +44,9 @@ struct DataFrame : public Frame {
     uint8_t *payload;
 
     //functions
-    DataFrame(uint8_t *payload, size_t len);
-    serialize(uint8_t* buffer) override;
+    DataFrame(const uint8_t *data, const size_t len);
+    void serialize(uint8_t* buffer) override;
+    void deserialize(uint8_t* buffer) override;
 };
 
 
@@ -52,9 +58,9 @@ struct BootFrame : public Frame {
     uint8_t *bootMessage;
 
     //functions
-    Bootframe(uint8_t *msg, size_t len);
-    serialize(uint8_t* buffer) override;
-    deserialize(uint8_t* buffer) override;
+    BootFrame(const uint8_t *data, const size_t len);
+    void serialize(uint8_t* buffer) override;
+    void deserialize(uint8_t* buffer) override;
 };
 
 
@@ -63,21 +69,21 @@ struct BootFrame : public Frame {
 struct ReqFrame : public Frame {
 
     //members
-    DataType requestType;
+    DataType requests;
 
     //functions
-    ReqFrame(uint8_t *reqs, size_t len);
-    serialize(uint8_t* buffer) override;
-    deserialize(uint8_t* buffer) override;
+    ReqFrame(const uint8_t *data, const size_t len);
+    void serialize(uint8_t* buffer) override;
+    void deserialize(uint8_t* buffer) override;
 };
 
 
 // ***** ACK FRAME ******
 
 struct AckFrame : public Frame {
-
+    public:
     //functions
-    void AckFrame();
+    AckFrame(const uint8_t *data, const size_t len);
 };
 
 
@@ -86,6 +92,9 @@ struct AckFrame : public Frame {
 struct NackFrame : public Frame {
 
     //functions
-    void NackFrame();
+    NackFrame(const uint8_t *data, const size_t len);
 };
+
+#endif
+
 
