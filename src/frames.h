@@ -6,7 +6,7 @@
 #include <cstddef>
 
 enum FrameType {
-    BOOTMSG,
+    BOOTMESSAGE,
     REQUEST,
     DATA,
     ACK,
@@ -31,8 +31,8 @@ struct Frame {
     public:
     //functions
     Frame(const uint8_t *data, const size_t len);
-    virtual void serialize(uint8_t* buffer);
-    virtual void deserialize(uint8_t* buffer);
+    virtual void structToBitstream(uint8_t* buffer);
+    virtual void bitstreamToStruct(uint8_t* buffer);
 };
 
 
@@ -45,8 +45,8 @@ struct DataFrame : public Frame {
 
     //functions
     DataFrame(const uint8_t *data, const size_t len);
-    void serialize(uint8_t* buffer) override;
-    void deserialize(uint8_t* buffer) override;
+    void structToBitstream(uint8_t* buffer) override;
+    void bitstreamToStruct(uint8_t* buffer) override;
 };
 
 
@@ -59,8 +59,8 @@ struct BootFrame : public Frame {
 
     //functions
     BootFrame(const uint8_t *data, const size_t len);
-    void serialize(uint8_t* buffer) override;
-    void deserialize(uint8_t* buffer) override;
+    void structToBitstream(uint8_t* buffer) override;
+    void bitstreamToStruct(uint8_t* buffer) override;
 };
 
 
@@ -69,12 +69,12 @@ struct BootFrame : public Frame {
 struct ReqFrame : public Frame {
 
     //members
-    DataType requests;
+    uint8_t *requests;
 
     //functions
     ReqFrame(const uint8_t *data, const size_t len);
-    void serialize(uint8_t* buffer) override;
-    void deserialize(uint8_t* buffer) override;
+    void structToBitstream(uint8_t* buffer) override;
+    void bitstreamToStruct(uint8_t* buffer) override;
 };
 
 
