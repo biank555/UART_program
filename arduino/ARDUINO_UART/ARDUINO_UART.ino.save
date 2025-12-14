@@ -10,12 +10,10 @@
   //int inFrame = 0;
 
 void setup() {
-    delay(1500);
+  //Serial.begin(115200);   // Open seriële communicatie op 115200 baud
     uart_init();
-    hal_print("heh-lo\n");
-    //Serial.begin(115200);   // Open seriële communicatie op 115200 baud
-    uart_listen();
-    //Serial.println("hallo");
+    //uart_listen();
+  //Serial.println(STX);
   // SEND BOOT MESSAGE
 }
 

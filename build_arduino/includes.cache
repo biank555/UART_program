@@ -1,0 +1,225 @@
+[
+  {
+    "added_include_path": "/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
+  },
+  {
+    "added_include_path": "/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard"
+  },
+  {
+    "compile": {
+      "source_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp",
+      "object_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp.o",
+      "depfile_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "/home/bianca/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+        "-c",
+        "-g",
+        "-Os",
+        "-w",
+        "-std=gnu++11",
+        "-fpermissive",
+        "-fno-exceptions",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-fno-threadsafe-statics",
+        "-Wno-error=narrowing",
+        "-flto",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-mmcu=atmega328p",
+        "-DF_CPU=16000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_AVR_UNO",
+        "-DARDUINO_ARCH_AVR",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+        "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp",
+        "-o",
+        "/dev/null"
+      ]
+    }
+  },
+  {
+    "missing_include_h": "PLATFORM_HAL.h"
+  },
+  {
+    "added_include_path": "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src"
+  },
+  {
+    "compile": {
+      "source_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp",
+      "object_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp.o",
+      "depfile_path": "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "/home/bianca/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+        "-c",
+        "-g",
+        "-Os",
+        "-w",
+        "-std=gnu++11",
+        "-fpermissive",
+        "-fno-exceptions",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-fno-threadsafe-statics",
+        "-Wno-error=narrowing",
+        "-flto",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-mmcu=atmega328p",
+        "-DF_CPU=16000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_AVR_UNO",
+        "-DARDUINO_ARCH_AVR",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+        "-I/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src",
+        "/home/bianca/Repos/UART_program/build_arduino/sketch/ARDUINO_UART.ino.cpp",
+        "-o",
+        "/dev/null"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  },
+  {
+    "compile": {
+      "source_path": "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/PLATFORM_HAL.cpp",
+      "object_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/PLATFORM_HAL.cpp.o",
+      "depfile_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/PLATFORM_HAL.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "/home/bianca/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+        "-c",
+        "-g",
+        "-Os",
+        "-w",
+        "-std=gnu++11",
+        "-fpermissive",
+        "-fno-exceptions",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-fno-threadsafe-statics",
+        "-Wno-error=narrowing",
+        "-flto",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-mmcu=atmega328p",
+        "-DF_CPU=16000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_AVR_UNO",
+        "-DARDUINO_ARCH_AVR",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+        "-I/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src",
+        "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/PLATFORM_HAL.cpp",
+        "-o",
+        "/dev/null"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  },
+  {
+    "compile": {
+      "source_path": "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/frames.cpp",
+      "object_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/frames.cpp.o",
+      "depfile_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/frames.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "/home/bianca/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+        "-c",
+        "-g",
+        "-Os",
+        "-w",
+        "-std=gnu++11",
+        "-fpermissive",
+        "-fno-exceptions",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-fno-threadsafe-statics",
+        "-Wno-error=narrowing",
+        "-flto",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-mmcu=atmega328p",
+        "-DF_CPU=16000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_AVR_UNO",
+        "-DARDUINO_ARCH_AVR",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+        "-I/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src",
+        "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/frames.cpp",
+        "-o",
+        "/dev/null"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  },
+  {
+    "compile": {
+      "source_path": "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/uart.cpp",
+      "object_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/uart.cpp.o",
+      "depfile_path": "/home/bianca/Repos/UART_program/build_arduino/libraries/UART_common/uart.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "/home/bianca/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+        "-c",
+        "-g",
+        "-Os",
+        "-w",
+        "-std=gnu++11",
+        "-fpermissive",
+        "-fno-exceptions",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-fno-threadsafe-statics",
+        "-Wno-error=narrowing",
+        "-flto",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-mmcu=atmega328p",
+        "-DF_CPU=16000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_AVR_UNO",
+        "-DARDUINO_ARCH_AVR",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+        "-I/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+        "-I/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src",
+        "/home/bianca/Repos/UART_program/arduino/libraries/UART_common/src/uart.cpp",
+        "-o",
+        "/dev/null"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  }
+]

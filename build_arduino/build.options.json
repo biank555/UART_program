@@ -1,0 +1,9 @@
+{
+  "additionalFiles": "",
+  "compiler.optimization_flags": "",
+  "customBuildProperties": "",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6,/home/bianca/.arduino15/packages/arduino/hardware/avr/1.8.6",
+  "otherLibrariesFolders": "/home/bianca/Repos/UART_program/arduino/libraries,/home/bianca/Arduino/libraries",
+  "sketchLocation": "/home/bianca/Repos/UART_program/arduino/ARDUINO_UART"
+}
