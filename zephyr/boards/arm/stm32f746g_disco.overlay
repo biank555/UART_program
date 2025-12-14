@@ -1,0 +1,8 @@
+&usart6 {
+        current-speed = <9600>;
+};
+
+&sdmmc1 {
+        status = "okay";
+	bus-width = <4>;
+};
