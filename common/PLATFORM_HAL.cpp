@@ -23,7 +23,7 @@ int hal_uart_init() {
     }
     printf("USART6 ready\n");
     frames_init();
-    printf("frame counter initialized\n");
+    hal_print("frame counter initialized\n");
 
     k_msleep(100);
 
@@ -56,13 +56,15 @@ int hal_print(const char* word) {
 }
 
 int hal_uart_init() {
-    //frames_init();
+    frames_init();
     Serial.begin(115200);
+    //Serial.println("hal_uart_init Serial.begun\n");//!!
     return 0;
 }
 
 int hal_uart_listen(uint8_t *c) {
     *c = Serial.read();
+    Serial.println("hal_uart_listen\n");
 
     return 0;
 }

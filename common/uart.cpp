@@ -46,7 +46,7 @@ void pinging() {
 void uart_listen()
 {
 
-    printf("UART: Listening...\n");
+    //hal_print("UART: Listening...\n");//!!
 
     int inFrame = 0;
 
@@ -84,6 +84,7 @@ void uart_listen()
 
 
 void read_frame(uint8_t *buffer, size_t len) {
+ //TODO:dit naar frame.h/cpp verplaatsen, ben jij gek?
 
 
     BootFrame bootFrame(buffer, len);

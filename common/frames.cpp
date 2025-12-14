@@ -10,7 +10,8 @@
 #define TAIL_SIZE 2
 
 void frames_init() {
-    //int frameCounter = 0;
+    int frameCounter = 0;
+    hal_print("int frameCounter = 0;\n");//!!
 }
 
 
@@ -164,3 +165,11 @@ PingFrame::PingFrame( uint8_t *data, size_t len)
     frameType = PING;
 
 }
+
+
+
+
+
+// ************ TROUBLESHOOT ***************
+
+//
