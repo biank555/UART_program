@@ -20,7 +20,6 @@ enum FrameType {
     PING
 };
 
-static uint8_t frameCounter;
 void frames_init(void);
 
 // ***** BASE FRAME ******

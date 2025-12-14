@@ -9,12 +9,13 @@
 #endif
 
 
-
+uint8_t buffer[MAX_BUFFER];
 
 
 // INITIALIZER
 int uart_init() {
-    hal_uart_init();
+    hal_uart_init();//TODO:fix whatever's going on here!!
+    return 0;
 }
 
 
@@ -39,31 +40,29 @@ void uart_listen()
 
     printf("UART: Listening...\n");
 
-    uint8_t buffer[MAX_BUFFER];
-
     int inFrame = 0;
 
     size_t i = 0;
-    uint8_t c;
+    uint8_t *c;
 
     while(1) {
-        if (hal_uart_listen() == 0) {
+        if (hal_uart_listen(c) == 0) {
 
-            if (c == STX) {
+            if (*c == STX) {
 		i = 0;
-		buffer[i] = c;
+		buffer[i] = *c;
                 inFrame = 1;
 
             } else if (inFrame) {
 
 		if (i>MAX_BUFFER) {
-    		    buffer[i++] = c;
+    		    buffer[i++] = *c;
 		} else {
 		    inFrame = 0;
 		    i = 0;
 		}
 
-		if (c == ETX) {
+		if (*c == ETX) {
 		    inFrame = 0;
 		    i = 0;
 		    read_frame(buffer, buffer[3]);
@@ -74,6 +73,7 @@ void uart_listen()
         }
     }
 }
+
 
 void read_frame(uint8_t *buffer, size_t len) {
 

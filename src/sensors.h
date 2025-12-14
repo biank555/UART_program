@@ -1,5 +1,0 @@
-enum DataType {
-    TEMP,
-    SDCARD
-};
-

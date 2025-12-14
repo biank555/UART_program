@@ -5,7 +5,8 @@
 
 #ifdef __ZEPHYR__
 #include  <zephyr/device.h>
-static const struct device *uart_dev;
+#include <zephyr/drivers/uart.h>
+static const device *uart_dev;
 #elif defined(ARDUINO)
 #include <Arduino.h>
 typedef unsigned char uint8_t;
@@ -13,10 +14,10 @@ typedef unsigned char uint8_t;
 
 void hal_msleep(int ms);
 
-char hal_buffer;
+//char hal_buffer;
 
 void hal_uart_init();
-int hal_uart_listen();
+int hal_uart_listen(uint8_t *c);
 void hal_uart_transmit(uint8_t *buffer, size_t len);
 
 #endif // PLATFORM_HAL_H

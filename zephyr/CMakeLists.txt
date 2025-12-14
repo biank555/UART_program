@@ -5,13 +5,13 @@ project(uart)
 
 target_sources(app PRIVATE
     src/main.cpp
-    src/uart.cpp
-    src/frames.cpp
-    src/sensors.cpp
-    src/PLATFORM_HAL.cpp)
+    ../common/uart.cpp
+    ../common/frames.cpp
+    ../common/sensors.cpp
+    ../common/PLATFORM_HAL.cpp)
 
 target_include_directories(app PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common
 )
 
 

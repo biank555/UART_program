@@ -1,12 +1,11 @@
 //define STX 0x02//!!
 //define ETX 0x03//!!
 
-#include "PLATFORM_HAL.h"
-#include "uart.h"
-#include "frames.h"
+#include <PLATFORM_HAL.h>
+#include <uart.h>
+#include <frames.h>
 
   //#define MAX_BUFFER 128//!!
-  //char buffer[MAX_BUFFER];
   //int i = 0;  
   //int inFrame = 0;
 

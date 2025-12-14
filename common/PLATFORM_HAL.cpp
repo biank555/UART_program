@@ -13,29 +13,27 @@ void hal_print(const char* word) {
 }
 
 void hal_uart_init() {
-    device *uart_dev = DEVICE_DT_GET(DT_NODELABEL(usart6)>
+    const device *uart_dev = DEVICE_DT_GET(DT_NODELABEL(usart6));
 
     if (!device_is_ready(uart_dev)) {
         printf("USART6 not ready!\n");
-        return -1;
     }
     printf("USART6 ready\n");
     frames_init();
     printf("frame counter initialized\n");
 
     k_msleep(100);
-    return 0;
 
 
     //uint8_t buffer[MAX_BUFFER] = {0,1,2,3,4,5};//troubleshoot values!!
 
 }
 
-int hal_uart_listen(); {
-return uart_poll_in(uart_dev, &c);
+int hal_uart_listen(uint8_t *c) {
+return uart_poll_in(uart_dev, c);
 }
 
-void hal_uart_transmit(uint8_t buffer, size_t len) {
+void hal_uart_transmit(uint8_t *buffer, size_t len) {
     for(size_t i = 0; i < len; i++) {
         uart_poll_out(uart_dev, buffer[i]);
     }
@@ -57,8 +55,8 @@ void hal_uart_init() {
     Serial.begin(115200);
 }
 
-int hal_uart_listen() {
-    char c = Serial.read();
+int hal_uart_listen(uint8_t *c) {
+    c = Serial.read();
 
     return 0;
 }

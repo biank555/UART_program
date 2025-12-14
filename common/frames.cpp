@@ -10,7 +10,7 @@
 #define TAIL_SIZE 2
 
 void frames_init() {
-    int frameCounter = 0;
+    //int frameCounter = 0;
 }
 
 
@@ -19,10 +19,11 @@ void frames_init() {
 
 Frame::Frame( uint8_t *data,  size_t len) {
 
+    static int frameCounter = 0;
+
     length = HEADER_SIZE+TAIL_SIZE;
 
-
-    id = frameCounter++;
+    id = (frameCounter < 255 ? frameCounter++ : frameCounter = 0);
     printf("frameCounter = %d\n", frameCounter);
     checksum = 0;
 }
