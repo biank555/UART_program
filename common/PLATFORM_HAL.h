@@ -17,8 +17,8 @@ void hal_msleep(int ms);
 //char hal_buffer;
 
 int hal_uart_init();
-int hal_print(const char* word);
+int hal_print(const char* str);
 int hal_uart_listen(uint8_t *c);
-int hal_uart_transmit(uint8_t *buffer, size_t len);
+int hal_uart_transmit(uint8_t *c);
 
 #endif // PLATFORM_HAL_H

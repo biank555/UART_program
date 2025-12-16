@@ -20,7 +20,8 @@ enum FrameType {
     PING
 };
 
-void frames_init(void);
+void frame_id_init(void);
+uint8_t frame_id_next();
 
 // ***** BASE FRAME ******
 
@@ -28,13 +29,18 @@ struct Frame {
 
     uint8_t frameType;
     uint8_t id;
-    uint8_t length;
+    uint8_t payload_length;
     uint8_t checksum;
 
     public:
-    Frame(uint8_t *data = nullptr, size_t len = 0);
-    virtual void structToBitstream(uint8_t* buffer);
-    virtual void bitstreamToStruct(uint8_t* buffer);
+    Frame(uint8_t *data = nullptr, size_t payload_len = 0);
+
+    virtual void bitstreamToStruct(uint8_t* rx_buffer);
+    static void readFrame(uint8_t *rx_buffer); // -> destructor?
+    //virtual void makeFrame(uint8_t *buffer, size_t payload_len); -> zie constructor
+    virtual void structToBitstream(uint8_t* tx_buffer);
+
+
 };
 
 
@@ -45,9 +51,9 @@ struct DataFrame : public Frame {
     uint8_t *payload;
 
     public:
-    DataFrame( uint8_t *data,  size_t len);
-    void structToBitstream(uint8_t* buffer) override;
-    void bitstreamToStruct(uint8_t* buffer) override;
+    DataFrame( uint8_t *data,  size_t payload_len);
+    void structToBitstream(uint8_t* tx_buffer) override;
+    void bitstreamToStruct(uint8_t* rx_buffer) override;
 };
 
 
@@ -55,12 +61,12 @@ struct DataFrame : public Frame {
 
 struct BootFrame : public Frame {
 
-    uint8_t *bootMessage;
+    uint8_t *message;
 
     public:
-    BootFrame( uint8_t *data,  size_t len);
-    void structToBitstream(uint8_t* buffer) override;
-    void bitstreamToStruct(uint8_t* buffer) override;
+    BootFrame( uint8_t *data,  size_t payload_len);
+    void structToBitstream(uint8_t* tx_buffer) override;
+    void bitstreamToStruct(uint8_t* rx_buffer) override;
 };
 
 
@@ -71,9 +77,9 @@ struct ReqFrame : public Frame {
     uint8_t *requests;
 
     public:
-    ReqFrame( uint8_t *data,  size_t len);
-    void structToBitstream(uint8_t* buffer) override;
-    void bitstreamToStruct(uint8_t* buffer) override;
+    ReqFrame( uint8_t *data,  size_t payload_len);
+    void structToBitstream(uint8_t* tx_buffer) override;
+    void bitstreamToStruct(uint8_t* rx_buffer) override;
 };
 
 
@@ -81,7 +87,7 @@ struct ReqFrame : public Frame {
 
 struct AckFrame : public Frame {
     public:
-    AckFrame( uint8_t *data,  size_t len);
+    AckFrame( uint8_t *data,  size_t payload_len);
 };
 
 
@@ -89,7 +95,7 @@ struct AckFrame : public Frame {
 
 struct NackFrame : public Frame {
     public:
-    NackFrame( uint8_t *data,  size_t len);
+    NackFrame( uint8_t *data,  size_t payload_len);
 };
 
 #endif
@@ -99,5 +105,5 @@ struct NackFrame : public Frame {
 
 struct PingFrame : public Frame {
     public:
-    PingFrame( uint8_t *data, size_t len);
+    PingFrame( uint8_t *data, size_t payload_len);
 };

@@ -9,8 +9,8 @@
 #endif
 
 
-uint8_t *buffer[MAX_BUFFER];
-
+uint8_t tx_buffer[MAX_BUFFER];
+uint8_t rx_buffer[MAX_BUFFER];
 
 // INITIALIZER
 int uart_init() {
@@ -20,7 +20,7 @@ int uart_init() {
 	return 1;
     }
     hal_print("UART ready\n");
-
+    frame_id_init();
     //send boot message
 
     return 0;
@@ -51,87 +51,38 @@ void uart_listen()
     int inFrame = 0;
 
     size_t i = 0;
-    uint8_t *c;
+    uint8_t c;
 
     while(1) {
-        if (hal_uart_listen(c) == 0) {
+        if (hal_uart_listen(&c) == 0) {
+	    printf("hal_uart_listen: c = %x\n",c);
 
-            if (*c == STX) {
+            if (c == STX) {
 		i = 0;
-		buffer[i] = c;
+		rx_buffer[i] = c;
                 inFrame = 1;
 
             } else if (inFrame) {
 
-		if (i>MAX_BUFFER) {
-    		    buffer[i++] = c;
+		if (i<MAX_BUFFER) {
+    		    rx_buffer[i++] = c;
 		} else {
 		    inFrame = 0;
 		    i = 0;
 		}
 
-		if (*c == ETX) {
+		if (c == ETX) {
+		    printf("ETX seen\n");
+		    rx_buffer[i++];
 		    inFrame = 0;
+		    Frame::readFrame(rx_buffer);
 		    i = 0;
-		    read_frame(*buffer, *buffer[3]);
 		}
 	    }
-
-
         }
     }
 }
 
-
-void read_frame(uint8_t *buffer, size_t len) {
- //TODO:dit naar frame.h/cpp verplaatsen, ben jij gek?
-
-
-    BootFrame bootFrame(buffer, len);
-    ReqFrame reqFrame(buffer, len);
-    DataFrame dataFrame(buffer, len);
-    AckFrame ackFrame(buffer, len);
-    NackFrame nackFrame(buffer, len);
-    PingFrame pingFrame(buffer, len);
-
-
-    switch (buffer[1]) {
-	case BOOTMESSAGE:
-	    bootFrame.bitstreamToStruct(buffer);
-	    //send ACK
-	    printf("%c",bootFrame.bootMessage);
-	    break;
-
-	case REQUEST:
-	    reqFrame.bitstreamToStruct(buffer);
-	    //send ACK?
-	    //sensor measurements
-	    dataFrame.id = reqFrame.id;
-	    dataFrame.payload = reqFrame.requests;
-	    break;
-
-	case DATA:
-	    dataFrame.bitstreamToStruct(buffer);
-	    ackFrame.id = dataFrame.id;
-	    uart_transmit(buffer,ackFrame.length); // send ACK
-	    break;
-
-	case ACK:
-	    ackFrame.bitstreamToStruct(buffer);
-	    //TODO!!
-	    break;
-
-	case NACK://TODO:implement!!
-	    nackFrame.bitstreamToStruct(buffer);
-	    break;
-
-	case PING:
-	    pingFrame.bitstreamToStruct(buffer);
-            ackFrame.id = pingFrame.id;
-            uart_transmit(buffer,ackFrame.length); // send ACK
-	    break;
-    }
-}
 
 /*
     char buffer[MAX_BUFFER];
@@ -151,13 +102,14 @@ void read_frame(uint8_t *buffer, size_t len) {
     }
 */
 
-void uart_transmit(uint8_t *buffer, size_t len)
+void uart_transmit(uint8_t *tx_buffer, size_t len)
 {
-    printf("sending ...\n");
-
+    printf("in uart_transmit \n");
     for(size_t i = 0; i < len; i++) {
-	hal_uart_transmit(buffer, sizeof(buffer));
+	printf("[%d]%x  ", i, tx_buffer[i]);
+	//hal_uart_transmit(&tx_buffer[i]);
     }
+    hal_print("\n");
 
 /*
     char buffer[MAX_BUFFER];

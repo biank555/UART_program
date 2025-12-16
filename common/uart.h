@@ -10,14 +10,13 @@
      //only zephyr
 #endif // __ZEPHYR__
 
-extern uint8_t *buffer[MAX_BUFFER];
-
+extern uint8_t tx_buffer[MAX_BUFFER];
+extern uint8_t rx_buffer[MAX_BUFFER];
 
 int uart_init();
 void uart_listen();
 //void print();
-void uart_transmit(uint8_t *buffer, size_t len);
-void read_frame(uint8_t *buffer, size_t len);
+void uart_transmit(uint8_t *tx_buffer, size_t len);
 void pinging();
 
 #endif // UART_H

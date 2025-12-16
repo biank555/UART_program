@@ -9,8 +9,13 @@ void hal_msleep(int ms) {
     return;
 }
 
-int hal_print(const char* word) {
-    printf(word);
+int hal_print(const char* str) {
+
+    for (size_t i = 0; i < MAX_BUFFER; i++) {
+        printk("%02X ", str[i]);
+    }
+    printk("\n");
+
     return 0;
 }
 
@@ -22,8 +27,7 @@ int hal_uart_init() {
 	return 1;
     }
     printf("USART6 ready\n");
-    frames_init();
-    hal_print("frame counter initialized\n");
+    printf("frame counter initialized\n");
 
     k_msleep(100);
 
@@ -36,10 +40,9 @@ int hal_uart_listen(uint8_t *c) {
 return uart_poll_in(uart_dev, c);
 }
 
-int hal_uart_transmit(uint8_t *buffer, size_t len) {
-    for(size_t i = 0; i < len; i++) {
-        uart_poll_out(uart_dev, buffer[i]);
-    }
+int hal_uart_transmit(uint8_t *c) {
+    uart_poll_out(uart_dev, *c);
+    //hal_print(["hal_uart_transmit_buffer = %x", buffer[i];
     return 0;
 }
 
@@ -56,21 +59,28 @@ int hal_print(const char* word) {
 }
 
 int hal_uart_init() {
-    frames_init();
+    hal_print("in hal_uart_init\n");
     Serial.begin(115200);
     //Serial.println("hal_uart_init Serial.begun\n");//!!
     return 0;
 }
 
 int hal_uart_listen(uint8_t *c) {
-    *c = Serial.read();
-    Serial.println("hal_uart_listen\n");
 
+    if(Serial.available() == 0) {
+	return -1;
+    }
+
+    char character = (uint8_t)Serial.read();
+    if (character < 0) {
+	return -1;
+    }
+    *c = (uint8_t)character;
     return 0;
 }
 
-int hal_uart_transmit(uint8_t *buffer, size_t len) {
-    Serial.println(*buffer);
+int hal_uart_transmit(uint8_t *c) {
+    Serial.println(*c);
     return 0;
 }
 
